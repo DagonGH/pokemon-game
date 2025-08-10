@@ -19,5 +19,5 @@ const pokemonImage = computed(() => {
     alt="Pokemon image"
     class="trasition-all fade-in h-48 w-48 mb-8"
   />
-  <img v-else :src="pokemonImage" alt="Pokemon image" class="brightness-0 h-48 w-48" />
+  <img v-else :src="pokemonImage" alt="Pokemon image" class="brightness-0 h-48 w-48 mb-8" />
 </template>

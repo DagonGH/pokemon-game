@@ -1,12 +1,14 @@
 import { ref, computed, onMounted } from 'vue'
 import { GameEstatus } from '@/modules/pokemon/interfaces/GameEstatus'
 import type { Pokemon, Result } from '@/modules/pokemon/interfaces/PokemonResponse'
-import confetti from 'canvas-confetti'
+import launchConfetti from '@/modules/pokemon/helpers/LaunchConfetti'
 
 export const usePokemonGame = () => {
   const gameStatus = ref<GameEstatus>(GameEstatus.playing)
   const pokemons = ref<Pokemon[]>([])
   const pokemonOptions = ref<Pokemon[]>([])
+  const successCounter = ref<number>(0)
+  const lostCounter = ref<number>(0)
 
   const randomPokemon = computed<Pokemon | null>(() => {
     // Protección por si las opciones aún no están cargadas
@@ -46,15 +48,11 @@ export const usePokemonGame = () => {
 
     if (hasWon) {
       gameStatus.value = GameEstatus.won
-      confetti({
-        particleCount: 3000,
-        spread: 150,
-        origin: {
-          y: 0.6,
-        },
-      })
+      launchConfetti()
+      successCounter.value++
     } else {
       gameStatus.value = GameEstatus.lost
+      lostCounter.value++
     }
   }
 
@@ -68,6 +66,8 @@ export const usePokemonGame = () => {
     isLoading,
     pokemonOptions,
     randomPokemon,
+    successCounter,
+    lostCounter,
     //Funciones
     getNextRound,
     checkAnswer,

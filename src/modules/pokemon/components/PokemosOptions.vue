@@ -38,7 +38,7 @@ defineEmits<{
 @reference "tailwindcss";
 button {
   @apply bg-white
-  shadow-md
+  shadow
   rounded-lg
   p-3
  cursor-pointer
