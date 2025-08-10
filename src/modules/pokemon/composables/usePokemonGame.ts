@@ -9,6 +9,7 @@ export const usePokemonGame = () => {
   const pokemonOptions = ref<Pokemon[]>([])
   const successCounter = ref<number>(0)
   const lostCounter = ref<number>(0)
+  const automaticRound = ref<boolean>(true)
 
   const randomPokemon = computed<Pokemon | null>(() => {
     // Protección por si las opciones aún no están cargadas
@@ -54,6 +55,11 @@ export const usePokemonGame = () => {
       gameStatus.value = GameEstatus.lost
       lostCounter.value++
     }
+    if (automaticRound.value) {
+      setTimeout(() => {
+        getNextRound()
+      }, 1500)
+    }
   }
 
   onMounted(async () => {
@@ -68,6 +74,7 @@ export const usePokemonGame = () => {
     randomPokemon,
     successCounter,
     lostCounter,
+    automaticRound,
     //Funciones
     getNextRound,
     checkAnswer,

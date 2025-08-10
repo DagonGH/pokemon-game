@@ -3,6 +3,7 @@ import PokemonPicture from '@/modules/pokemon/components/PokemonPicture.vue'
 import PokemonOptions from '@/modules/pokemon/components/PokemosOptions.vue'
 import { usePokemonGame } from '@/modules/pokemon/composables/usePokemonGame'
 import { GameEstatus } from '@/modules/pokemon/interfaces/GameEstatus'
+import NavigationHeader from '@/modules/pokemon/components/NavigationHeader.vue'
 
 const {
   randomPokemon,
@@ -13,6 +14,7 @@ const {
   getNextRound,
   successCounter,
   lostCounter,
+  automaticRound,
 } = usePokemonGame()
 
 const onSelectedOption = (id: number) => {
@@ -21,6 +23,12 @@ const onSelectedOption = (id: number) => {
 </script>
 
 <template>
+  <NavigationHeader
+    :success-counter="successCounter"
+    :lost-counter="lostCounter"
+    v-model:automatic-round="automaticRound"
+  />
+
   <section
     v-if="isLoading || randomPokemon === null"
     class="flex flex-col items-center justify-center h-screen w-screen"
@@ -29,20 +37,11 @@ const onSelectedOption = (id: number) => {
     <p class="text-xl animate-pulse">Espere por favor</p>
   </section>
 
-  <section v-else class="flex flex-col items-center justify-center h-screen w-screen">
-    <img src="@/assets/who-is.png" alt="Who is this Pokemon?" class="w-96 mb-8" />
-    <div v-if="successCounter > 0 || lostCounter > 0" class="flex gap-4 mb-8">
-      <div
-        class="w-22 flex justify-center bg-emerald-50 border border-emerald-500/20 p-2 rounded-lg text-emerald-500"
-      >
-        <span>{{ successCounter }}</span>
-      </div>
-      <div
-        class="w-22 flex justify-center bg-rose-50 border border-rose-500/20 p-2 rounded-lg text-rose-500"
-      >
-        <span>{{ lostCounter }}</span>
-      </div>
-    </div>
+  <section
+    v-else
+    class="flex flex-col justify-start md:justify-center items-center h-screen w-screen"
+  >
+    <img src="@/assets/who-is.png" alt="Who is this Pokemon?" class="w-64 md:w-96 mb-8" />
     <PokemonPicture
       :pokemon-id="randomPokemon.id"
       :show-pokemon="gameStatus !== GameEstatus.playing"
@@ -54,7 +53,7 @@ const onSelectedOption = (id: number) => {
       :correct-option="randomPokemon.id"
     />
     <button
-      v-if="gameStatus !== GameEstatus.playing"
+      v-if="!automaticRound && gameStatus !== GameEstatus.playing"
       @click="getNextRound()"
       class="mt-8 hover:bg-blue-100 w-48 p-4 rounded-lg text-blue-500 transition-all cursor-pointer"
     >

@@ -37,17 +37,7 @@ defineEmits<{
 <style scoped>
 @reference "tailwindcss";
 button {
-  @apply bg-white
-  shadow
-  rounded-lg
-  p-3
- cursor-pointer
- w-48
- text-center
-transition-all
-m-2
-hover:bg-slate-200
-capitalize;
+  @apply rounded-lg p-3 cursor-pointer w-48 transition-all border border-gray-200 m-2 bg-slate-100/20 capitalize;
 }
 
 .success {
