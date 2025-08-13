@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PokemonPicture from '@/modules/pokemon/components/PokemonPicture.vue'
-import PokemonOptions from '@/modules/pokemon/components/PokemosOptions.vue'
-import { usePokemonGame } from '@/modules/pokemon/composables/usePokemonGame'
-import { GameEstatus } from '@/modules/pokemon/interfaces/GameEstatus'
-import NavigationHeader from '@/modules/pokemon/components/NavigationHeader.vue'
+import PokemonPicture from '@pokemon/components/PokemonPicture.vue'
+import PokemonOptions from '@pokemon/components/PokemosOptions.vue'
+import { usePokemonGame } from '@pokemon/composables/usePokemonGame'
+import { GameEstatus } from '@pokemon/interfaces/GameEstatus'
+import NavigationHeader from '@pokemon/components/NavigationHeader.vue'
 
 const {
   randomPokemon,
